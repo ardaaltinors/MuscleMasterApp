@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "641166199272",
+    "project_id": "fitnessapp-7db30",
+    "storage_bucket": "fitnessapp-7db30.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641166199272:android:d6cc580dd9ac706fc7fc5d",
+        "android_client_info": {
+          "package_name": "com.example.musclemasterapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJKMnJ_5MbJW1QL2b2nYLrMZS0FET9AEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

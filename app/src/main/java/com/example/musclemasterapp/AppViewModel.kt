@@ -26,6 +26,14 @@ class AppViewModel @Inject constructor(
     val userData = mutableStateOf<UserData?>(null)
     val popupNotification = mutableStateOf<Event<String>?>(null)
 
+    init {
+        auth.signOut()
+        val currentUser = auth.currentUser
+        signedIn.value = currentUser != null
+        currentUser?.uid?.let {uid ->
+            getUserData(uid)
+        }
+    }
 
     fun onSignup(username: String, email: String, pass: String) {
         if (username.isEmpty() || email.isEmpty() || pass.isEmpty()) {
@@ -57,6 +65,33 @@ class AppViewModel @Inject constructor(
             }
             .addOnFailureListener {}
 
+    }
+
+    fun onLogin(email: String, pass: String) {
+        if (email.isEmpty() || pass.isEmpty()) {
+            handleException(customMessage = "Please fill in all fields")
+            return
+        }
+
+        inProgress.value = true
+        auth.signInWithEmailAndPassword(email, pass)
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful) {
+                    signedIn.value = true
+                    inProgress.value = false
+                    auth.currentUser?.uid?.let { uid ->
+                        handleException(customMessage = "Login Success")
+                        getUserData(uid)
+                    }
+                } else {
+                    handleException(task.exception, "Login failed")
+                    inProgress.value = false
+                }
+            }
+            .addOnFailureListener {exc ->
+                handleException(exc, "Login failed")
+                inProgress.value = false
+            }
     }
 
     private fun createOrUpdateProfile(

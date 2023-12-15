@@ -31,8 +31,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -43,7 +41,7 @@ import com.example.musclemasterapp.main.navigateTo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignupScreen(navController: NavController, vm: AppViewModel) {
+fun LoginScreen(navController: NavController, vm: AppViewModel) {
 
     val focus = LocalFocusManager.current
 
@@ -56,10 +54,10 @@ fun SignupScreen(navController: NavController, vm: AppViewModel) {
                 .verticalScroll(rememberScrollState())
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+        ) {
 
             val usernameState = remember { mutableStateOf(TextFieldValue()) }
-            val emailState = remember { mutableStateOf(TextFieldValue()) }
+            val email = remember { mutableStateOf(TextFieldValue()) }
             val passState = remember { mutableStateOf(TextFieldValue()) }
 
             Image(painter = painterResource(id = R.drawable.logo),
@@ -73,7 +71,7 @@ fun SignupScreen(navController: NavController, vm: AppViewModel) {
             )
 
             Text(
-                text = "Signup",
+                text = "Login",
                 modifier = Modifier
                     .padding(8.dp),
                 fontSize = 30.sp,
@@ -90,15 +88,7 @@ fun SignupScreen(navController: NavController, vm: AppViewModel) {
                 shape = RoundedCornerShape(8.dp),
                 label = { Text(text = "Username") }
             )
-            OutlinedTextField(
-                value = emailState.value,
-                onValueChange = { emailState.value = it},
-                modifier = Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-                shape = RoundedCornerShape(8.dp),
-                label = { Text(text = "Email") }
-            )
+
             OutlinedTextField(
                 value = passState.value,
                 onValueChange = { passState.value = it},
@@ -112,9 +102,8 @@ fun SignupScreen(navController: NavController, vm: AppViewModel) {
             Button(
                 onClick = {
                     focus.clearFocus(force = true)
-                    vm.onSignup(
-                        usernameState.value.text,
-                        emailState.value.text,
+                    vm.onLogin(
+                        email.value.text,
                         passState.value.text
                     )
 
@@ -124,14 +113,15 @@ fun SignupScreen(navController: NavController, vm: AppViewModel) {
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp),
             ) {
-                Text(text = "Signup")
+                Text(text = "Login")
             }
-            Text(text = "Already a user? Go to login ->",
+
+            Text(text = "New here? Go to signup ->",
                 color = Color.Blue,
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable {
-                        navigateTo(navController, DestinationScreen.Login)
+                        navigateTo(navController, DestinationScreen.Signup)
                     }
             )
 

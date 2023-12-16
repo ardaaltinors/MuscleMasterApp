@@ -37,12 +37,14 @@ import androidx.navigation.NavController
 import com.example.musclemasterapp.AppViewModel
 import com.example.musclemasterapp.DestinationScreen
 import com.example.musclemasterapp.R
+import com.example.musclemasterapp.main.checkSignedIn
 import com.example.musclemasterapp.main.navigateTo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavController, vm: AppViewModel) {
 
+    checkSignedIn(vm = vm, navContoller = navController)
     val focus = LocalFocusManager.current
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -57,7 +59,7 @@ fun LoginScreen(navController: NavController, vm: AppViewModel) {
         ) {
 
             val usernameState = remember { mutableStateOf(TextFieldValue()) }
-            val email = remember { mutableStateOf(TextFieldValue()) }
+            val emailState = remember { mutableStateOf(TextFieldValue()) }
             val passState = remember { mutableStateOf(TextFieldValue()) }
 
             Image(painter = painterResource(id = R.drawable.logo),
@@ -80,8 +82,8 @@ fun LoginScreen(navController: NavController, vm: AppViewModel) {
                 )
             )
             OutlinedTextField(
-                value = usernameState.value,
-                onValueChange = { usernameState.value = it},
+                value = emailState.value,
+                onValueChange = { emailState.value = it},
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth(),
@@ -103,7 +105,7 @@ fun LoginScreen(navController: NavController, vm: AppViewModel) {
                 onClick = {
                     focus.clearFocus(force = true)
                     vm.onLogin(
-                        email.value.text,
+                        emailState.value.text,
                         passState.value.text
                     )
 

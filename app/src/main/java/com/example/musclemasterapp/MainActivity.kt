@@ -15,8 +15,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.musclemasterapp.auth.LoginScreen
+import com.example.musclemasterapp.auth.ProfileScreen
 import com.example.musclemasterapp.auth.SignupScreen
+import com.example.musclemasterapp.main.CalculatorsScreen
 import com.example.musclemasterapp.main.NotificationMessage
+import com.example.musclemasterapp.main.WorkoutsScreen
 import com.example.musclemasterapp.ui.theme.MuscleMasterAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,6 +44,9 @@ class MainActivity : ComponentActivity() {
 sealed class DestinationScreen(val route: String) {
     object Signup: DestinationScreen("signup")
     object Login: DestinationScreen("login")
+    object Workouts: DestinationScreen("workouts")
+    object Calculators: DestinationScreen("calculators")
+    object Profile: DestinationScreen("profile")
 }
 
 @Composable
@@ -50,7 +56,6 @@ fun MuscleApp() {
 
     NotificationMessage(vm = vm)
 
-
     NavHost(navController = navController, startDestination = DestinationScreen.Signup.route) {
         composable(DestinationScreen.Signup.route) {
             SignupScreen(navController = navController, vm = vm)
@@ -58,14 +63,15 @@ fun MuscleApp() {
         composable(DestinationScreen.Login.route) {
             LoginScreen(navController = navController, vm = vm)
         }
+        composable(DestinationScreen.Workouts.route) {
+            WorkoutsScreen(navController = navController, vm = vm)
+        }
+        composable(DestinationScreen.Profile.route) {
+            ProfileScreen(navController = navController, vm = vm)
+        }
+        composable(DestinationScreen.Calculators.route) {
+            CalculatorsScreen(navController = navController, vm = vm)
+        }
     }
 
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MuscleMasterAppTheme {
-
-    }
 }

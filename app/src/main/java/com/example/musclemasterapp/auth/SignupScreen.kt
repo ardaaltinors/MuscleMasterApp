@@ -39,12 +39,14 @@ import androidx.navigation.NavController
 import com.example.musclemasterapp.AppViewModel
 import com.example.musclemasterapp.DestinationScreen
 import com.example.musclemasterapp.R
+import com.example.musclemasterapp.main.checkSignedIn
 import com.example.musclemasterapp.main.navigateTo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignupScreen(navController: NavController, vm: AppViewModel) {
 
+    checkSignedIn(vm = vm, navContoller = navController)
     val focus = LocalFocusManager.current
 
     Box(modifier = Modifier.fillMaxSize()) {

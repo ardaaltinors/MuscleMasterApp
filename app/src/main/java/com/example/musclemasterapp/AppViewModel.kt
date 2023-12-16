@@ -27,7 +27,7 @@ class AppViewModel @Inject constructor(
     val popupNotification = mutableStateOf<Event<String>?>(null)
 
     init {
-        auth.signOut()
+        //auth.signOut()
         val currentUser = auth.currentUser
         signedIn.value = currentUser != null
         currentUser?.uid?.let {uid ->
@@ -96,13 +96,17 @@ class AppViewModel @Inject constructor(
 
     private fun createOrUpdateProfile(
         username: String? = null,
-        gender: String? = null
+        gender: String? = null,
+        weight: String? = null,
+        height: String? = null,
     ) {
         val uid = auth.currentUser?.uid
         val userData = UserData(
             userId = uid,
             username = username ?: userData.value?.username,
-            gender = gender ?: userData.value?.gender
+            gender = gender ?: userData.value?.gender,
+            weight = weight ?: userData.value?.weight,
+            height = height ?: userData.value?.height
         )
 
         uid?.let { uid ->
@@ -151,8 +155,19 @@ class AppViewModel @Inject constructor(
     fun handleException(exception: Exception? = null, customMessage: String? = "") {
         exception?.printStackTrace()
         val errorMsg = exception?.localizedMessage ?: ""
-        val message = if (customMessage!!.isEmpty()) errorMsg else "$customMessage: $errorMsg"
+        val message = if (customMessage!!.isEmpty()) errorMsg else "$customMessage $errorMsg"
         popupNotification.value = Event(message)
+    }
+
+    fun updateProfileData(username: String, gender: String, weight: String, height: String) {
+        createOrUpdateProfile(username, gender, weight, height)
+    }
+
+    fun onLogout() {
+        auth.signOut()
+        signedIn.value = false
+        userData.value = null
+        popupNotification.value = Event("Logged out")
     }
 
 }

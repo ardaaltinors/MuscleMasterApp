@@ -7,20 +7,12 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.asAndroidPath
@@ -29,7 +21,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.example.musclemasterapp.AppViewModel
 import com.example.musclemasterapp.R
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
+import com.example.musclemasterapp.navigation.BottomNavigationItem
+import com.example.musclemasterapp.navigation.BottomNavigationMenu
 
 @Composable
 fun WorkoutsScreen(navController: NavController, vm: AppViewModel) {
@@ -41,7 +34,7 @@ fun WorkoutsScreen(navController: NavController, vm: AppViewModel) {
                     .background(Color(0xFFF4F7FA)),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center) {
-                MuscleScreen()
+                MuscleScreen(navController)
             }
 
             BottomNavigationMenu(selectedItem = BottomNavigationItem.WORKOUTS, navController = navController)
@@ -51,6 +44,10 @@ fun WorkoutsScreen(navController: NavController, vm: AppViewModel) {
 
 @Composable
 fun MuscleImageWithClickableAreas(onMuscleGroupClick: (String) -> Unit) {
+
+    Box(contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize()
+    ) {
 
     // Chest Imagemap
     val chestPath = Path().apply {
@@ -221,9 +218,9 @@ fun MuscleImageWithClickableAreas(onMuscleGroupClick: (String) -> Unit) {
         close()
     }
 
-    Box(contentAlignment = Alignment.Center,
+    Box(
         modifier = Modifier
-            .fillMaxSize()
+            .wrapContentSize()
             .pointerInput(Unit) {
                 detectTapGestures { offset ->
                     if (chestPath.contains(offset.x, offset.y)) {
@@ -279,16 +276,19 @@ fun MuscleImageWithClickableAreas(onMuscleGroupClick: (String) -> Unit) {
     ) {
         Image(
             painter = painterResource(id =R.drawable.model_front_male),
-            contentDescription = "Muscle Groups"
+            contentDescription = "Muscle Groups",
         )
 
+        /*
         // Debug icin canvas
-        /*Canvas(modifier = Modifier.matchParentSize()) {
+        Canvas(modifier = Modifier.matchParentSize()) {
             drawPath(
-                path = shoulderPath2,
+                path = chestPath,
                 color = Color.Red.copy(alpha = 0.3f)
             )
-        }*/
+        }
+        */
+    }
     }
 }
 
@@ -301,13 +301,13 @@ fun Path.contains(x: Float, y: Float): Boolean {
 }
 
 @Composable
-fun MuscleScreen() {
-    // Kas grubuna tıklandığında ne yapılacağını tanımlayın
+fun MuscleScreen(navController: NavController) {
+    // Kas grubuna tıklandığında
     val onMuscleGroupClick: (String) -> Unit = { muscleGroup ->
         // TODO: Tıklanan kas grubuna göre işlem yap
         println("$muscleGroup tıklandı")
+        navController.navigate("exercises/$muscleGroup")
     }
 
-    // Kas resmi ve tıklanabilir alanları içeren composable fonksiyonu çağırın
     MuscleImageWithClickableAreas(onMuscleGroupClick = onMuscleGroupClick)
 }

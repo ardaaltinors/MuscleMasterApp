@@ -90,6 +90,7 @@ fun SignupScreen(navController: NavController, vm: AppViewModel) {
                     .padding(8.dp)
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp),
+                singleLine = true,
                 label = { Text(text = "Username") }
             )
             OutlinedTextField(
@@ -99,6 +100,7 @@ fun SignupScreen(navController: NavController, vm: AppViewModel) {
                     .padding(8.dp)
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp),
+                singleLine = true,
                 label = { Text(text = "Email") }
             )
             OutlinedTextField(
@@ -108,6 +110,7 @@ fun SignupScreen(navController: NavController, vm: AppViewModel) {
                     .padding(8.dp)
                     .fillMaxWidth(),
                 label = { Text(text = "Password") },
+                singleLine = true,
                 shape = RoundedCornerShape(8.dp),
                 visualTransformation = PasswordVisualTransformation()
             )
@@ -119,7 +122,6 @@ fun SignupScreen(navController: NavController, vm: AppViewModel) {
                         emailState.value.text,
                         passState.value.text
                     )
-
                 },
                 modifier = Modifier
                     .padding(8.dp)

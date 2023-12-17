@@ -11,13 +11,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.musclemasterapp.auth.LoginScreen
 import com.example.musclemasterapp.auth.ProfileScreen
 import com.example.musclemasterapp.auth.SignupScreen
 import com.example.musclemasterapp.main.CalculatorsScreen
+import com.example.musclemasterapp.main.ExerciseScreen
 import com.example.musclemasterapp.main.NotificationMessage
 import com.example.musclemasterapp.main.WorkoutsScreen
 import com.example.musclemasterapp.ui.theme.MuscleMasterAppTheme
@@ -47,6 +50,7 @@ sealed class DestinationScreen(val route: String) {
     object Workouts: DestinationScreen("workouts")
     object Calculators: DestinationScreen("calculators")
     object Profile: DestinationScreen("profile")
+    object Exercises: DestinationScreen("exercises/{muscleGroup}")
 }
 
 @Composable
@@ -71,6 +75,12 @@ fun MuscleApp() {
         }
         composable(DestinationScreen.Calculators.route) {
             CalculatorsScreen(navController = navController, vm = vm)
+        }
+        composable(route = DestinationScreen.Exercises.route,
+            arguments = listOf(navArgument("muscleGroup") { type = NavType.StringType })
+        ) { backStackEntry ->
+            ExerciseScreen(navController = navController, vm = vm,
+                muscleGroup = backStackEntry.arguments?.getString("muscleGroup") ?: "")
         }
     }
 

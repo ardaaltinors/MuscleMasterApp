@@ -1,4 +1,4 @@
-package com.example.musclemasterapp.main
+package com.example.musclemasterapp.navigation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.musclemasterapp.DestinationScreen
 import com.example.musclemasterapp.R
+import com.example.musclemasterapp.main.navigateTo
 
 enum class BottomNavigationItem(val icon: Int, val navDestination: DestinationScreen) {
     WORKOUTS(R.drawable.ic_workout, DestinationScreen.Workouts),

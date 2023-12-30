@@ -53,6 +53,7 @@ fun ProfileScreen(navController: NavController, vm: AppViewModel) {
         var gender by rememberSaveable { mutableStateOf(userData?.gender ?: "") }
         var weight by rememberSaveable { mutableStateOf(userData?.weight ?: "") }
         var height by rememberSaveable { mutableStateOf(userData?.height ?: "") }
+        var age by rememberSaveable { mutableStateOf(userData?.age ?: "") }
 
         ProfileContent(
             vm = vm,
@@ -61,11 +62,13 @@ fun ProfileScreen(navController: NavController, vm: AppViewModel) {
             gender = gender,
             weight = weight,
             height = height,
+            age = age,
             onUsernameChange = { username = it },
             onGenderChange = { gender = it },
             onWeightChange = { weight = it },
             onHeightChange = { height = it },
-            onSave = { vm.updateProfileData(username, gender, weight, height) },
+            onAgeChange = { age = it },
+            onSave = { vm.updateProfileData(username, gender, weight, height, age) },
             onLogout = {
                 vm.onLogout()
                 navigateTo(navController, DestinationScreen.Login)
@@ -84,10 +87,12 @@ fun ProfileContent(
     gender: String = "female",
     weight: String,
     height: String,
+    age: String,
     onUsernameChange: (String) -> Unit,
     onGenderChange: (String) -> Unit,
     onWeightChange: (String) -> Unit,
     onHeightChange: (String) -> Unit,
+    onAgeChange: (String) -> Unit,
     onSave: () -> Unit,
     onLogout: () -> Unit
 ) {
@@ -115,15 +120,15 @@ fun ProfileContent(
 
                 CommonDivider()
 
-                Column(modifier = Modifier.padding(30.dp),
+                Column(modifier = Modifier.padding(horizontal = 30.dp, vertical = 10.dp),
                     horizontalAlignment = Alignment.CenterHorizontally) {
                     // Kullanici bilgileri
                     Image(painter = painterResource(id = if (gender == "male") R.drawable.mascot_male
                     else R.drawable.masoc_female),
                         contentDescription = "Mascot",
                         modifier = Modifier
-                            .height(250.dp)
-                            .padding(8.dp))
+                            .height(210.dp)
+                            .padding(6.dp))
 
                     OutlinedTextField(
                         value = username,
@@ -158,16 +163,15 @@ fun ProfileContent(
                         onGenderChange = onGenderChange
                     )
 
-                    /*OutlinedTextField(
-                        value = gender,
-                        onValueChange = onGenderChange,
+                    OutlinedTextField(
+                        value = age,
+                        onValueChange = onAgeChange,
                         modifier = Modifier
                             .padding(8.dp)
                             .fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp),
-                        label = { Text(text = "Gender") }
-                    )*/
-                    
+                        label = { Text(text = "Age") }
+                    )
                 }
 
 

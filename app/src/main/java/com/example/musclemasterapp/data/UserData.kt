@@ -9,12 +9,14 @@ data class UserData(
     val gender: String? = null,
     val weight: String? = null,
     val height: String? = null,
+    val age: String? = null,
 ) {
     fun toMap() = mapOf(
         "userId" to userId,
         "username" to username,
         "gender" to gender,
         "weight" to weight,
-        "height" to height
+        "height" to height,
+        "age" to age
     )
 }

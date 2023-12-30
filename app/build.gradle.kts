@@ -98,4 +98,18 @@ dependencies {
 
     // coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0-RC")
+
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+
+    // Moshi for JSON parsing
+    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.12.0")
+
+
+    // Runtime
+    implementation("androidx.compose.runtime:runtime:1.5.4")
+    implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
 }

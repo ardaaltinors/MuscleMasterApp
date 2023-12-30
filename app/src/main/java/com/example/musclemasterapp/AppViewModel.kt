@@ -99,6 +99,7 @@ class AppViewModel @Inject constructor(
         gender: String? = null,
         weight: String? = null,
         height: String? = null,
+        age: String? = null,
     ) {
         val uid = auth.currentUser?.uid
         val userData = UserData(
@@ -106,7 +107,8 @@ class AppViewModel @Inject constructor(
             username = username ?: userData.value?.username,
             gender = gender ?: userData.value?.gender,
             weight = weight ?: userData.value?.weight,
-            height = height ?: userData.value?.height
+            height = height ?: userData.value?.height,
+            age = age ?: userData.value?.age
         )
 
         uid?.let { uid ->
@@ -159,8 +161,8 @@ class AppViewModel @Inject constructor(
         popupNotification.value = Event(message)
     }
 
-    fun updateProfileData(username: String, gender: String, weight: String, height: String) {
-        createOrUpdateProfile(username, gender, weight, height)
+    fun updateProfileData(username: String, gender: String, weight: String, height: String, age: String) {
+        createOrUpdateProfile(username, gender, weight, height, age)
     }
 
     fun onLogout() {

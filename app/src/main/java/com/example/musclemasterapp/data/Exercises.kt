@@ -268,6 +268,29 @@ fun getExercises(): List<Exercises> {
             exerciseDescription = "Raising the heel off the ground while standing on one leg, focusing on one calf at a time.",
             exerciseImage = "ex_single_leg_calf_raise",
             exerciseDifficulty = "Intermediate"
+        ),
+
+        // BICEPS EX.
+        Exercises(
+            exerciseName = "Dumbbell Curl",
+            exerciseTargetMuscle = "biceps",
+            exerciseDescription = "Lifting a dumbbell in each hand, curling the weight while keeping the elbows close to the torso.",
+            exerciseImage = "ex_dumbell_curl",
+            exerciseDifficulty = "Beginner"
+        ),
+        Exercises(
+            exerciseName = "Barbell Curl",
+            exerciseTargetMuscle = "biceps",
+            exerciseDescription = "Curling a barbell upwards while maintaining a shoulder-width grip, emphasizing biceps muscle growth.",
+            exerciseImage = "ex_barbell_curl",
+            exerciseDifficulty = "Intermediate"
+        ),
+        Exercises(
+            exerciseName = "Concentration Curl",
+            exerciseTargetMuscle = "biceps",
+            exerciseDescription = "Performing curls with a single dumbbell while seated, focusing on isolating the biceps muscle.",
+            exerciseImage = "ex_concentration_curl",
+            exerciseDifficulty = "Advanced"
         )
 
     )

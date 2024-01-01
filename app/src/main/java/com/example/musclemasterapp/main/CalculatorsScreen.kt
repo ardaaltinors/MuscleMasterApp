@@ -97,13 +97,9 @@ private fun Calculatorcontent(
                 //
                 Column {
 
-                    Button(onClick = { navigateTo(navContoller = navController, DestinationScreen.MealPlan) }) {
-                        Text(text = "Meal plan")
-                    }
-
                     BMICard(gender, weight, height)
 
-                    CalorieCard(gender, weight, height, age)
+                    CalorieCard(gender, weight, height, age, navController)
 
                 }
 
@@ -121,7 +117,7 @@ private fun Calculatorcontent(
 
 @Preview
 @Composable
-fun BMICard(gender: String ="male", weight: String = "80", height: String = "180") {
+fun BMICard(gender: String = "male", weight: String = "80", height: String = "180") {
 
     Card(
         modifier = Modifier
@@ -137,13 +133,16 @@ fun BMICard(gender: String ="male", weight: String = "80", height: String = "180
 
         var showBmiInfo by remember { mutableStateOf(false) }
 
-        Column(modifier = Modifier
-            .padding(20.dp)
-            .fillMaxWidth()
-            .wrapContentHeight(),
-            horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier
+                .padding(20.dp)
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Row {
-                Text(text = "BMI:",
+                Text(
+                    text = "BMI:",
                     style = TextStyle(
                         fontSize = 30.sp,
                         fontWeight = FontWeight(800),
@@ -221,11 +220,17 @@ fun BMICard(gender: String ="male", weight: String = "80", height: String = "180
             )
         }
     }
-    
+
 }
 
 @Composable
-fun CalorieCard(gender: String ="male", weight: String = "80", height: String = "180", age: String = "21") {
+fun CalorieCard(
+    gender: String = "male",
+    weight: String = "80",
+    height: String = "180",
+    age: String = "21",
+    navController: NavController
+) {
 
     var selectedActivityLevel by remember { mutableStateOf(0) }
 
@@ -242,12 +247,15 @@ fun CalorieCard(gender: String ="male", weight: String = "80", height: String = 
 
         var showCalorieInfo by remember { mutableStateOf(false) }
 
-        Column(modifier = Modifier
-            .padding(20.dp)
-            .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier
+                .padding(20.dp)
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Row {
-                Text(text = "Daily Calorie Need:",
+                Text(
+                    text = "Daily Calorie Need:",
                     style = TextStyle(
                         fontSize = 30.sp,
                         fontWeight = FontWeight(800),
@@ -341,6 +349,14 @@ fun CalorieCard(gender: String ="male", weight: String = "80", height: String = 
                 ),
             )
 
+            var targetCalories = caloricNeed.toString()
+
+            Button(onClick = {
+                navController.navigate("mealplan/$targetCalories")
+            }) {
+                Text(text = "Generate Me A Meal Plan")
+            }
+
             //
         }
     }
@@ -371,7 +387,13 @@ private fun bmiIndicator(bmi: String): String {
     }
 }
 
-fun calculateCalorie(weight: String, height: String, age: String, gender: String, activityLevel: Int): Double {
+fun calculateCalorie(
+    weight: String,
+    height: String,
+    age: String,
+    gender: String,
+    activityLevel: Int
+): Double {
     val weightKg = weight.toDouble()
     val heightCm = height.toDouble()
     val ageYears = age.toDouble()
@@ -409,7 +431,8 @@ fun ActivityLevelSelector(
         "Very Active: intense exercise 6–7 times/week",
         "Extra Active: very intense exercise daily, or physical job"
     )
-    val activityLevelString = activityLevelOptions.getOrElse(selectedActivityLevel) { "Select Activity Level" }
+    val activityLevelString =
+        activityLevelOptions.getOrElse(selectedActivityLevel) { "Select Activity Level" }
 
     OutlinedTextField(
         value = activityLevelString,

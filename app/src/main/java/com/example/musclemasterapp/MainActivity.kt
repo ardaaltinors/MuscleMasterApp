@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.musclemasterapp.api.MealPlanScreen
 import com.example.musclemasterapp.auth.LoginScreen
 import com.example.musclemasterapp.auth.ProfileScreen
 import com.example.musclemasterapp.auth.SignupScreen
@@ -49,7 +50,7 @@ sealed class DestinationScreen(val route: String) {
     object Calculators: DestinationScreen("calculators")
     object Profile: DestinationScreen("profile")
     object Exercises: DestinationScreen("exercises/{muscleGroup}")
-    object MealPlan: DestinationScreen("mealplan")
+    object MealPlan: DestinationScreen("mealplan/{targetCalories}")
 }
 
 @Composable
@@ -80,6 +81,12 @@ fun MuscleApp() {
         ) { backStackEntry ->
             ExerciseScreen(navController = navController, vm = vm,
                 muscleGroup = backStackEntry.arguments?.getString("muscleGroup") ?: "")
+        }
+        composable(route = DestinationScreen.MealPlan.route,
+            arguments = listOf(navArgument("targetCalories") { type = NavType.StringType })
+        ) { backStackEntry ->
+            MealPlanScreen(navController = navController,
+                targetCalories = backStackEntry.arguments?.getString("targetCalories") ?: "")
         }
     }
 

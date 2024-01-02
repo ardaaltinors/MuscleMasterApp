@@ -89,7 +89,7 @@ fun LoginScreen(navController: NavController, vm: AppViewModel) {
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp),
                 singleLine = true,
-                label = { Text(text = "Username") }
+                label = { Text(text = "Email") }
             )
 
             OutlinedTextField(

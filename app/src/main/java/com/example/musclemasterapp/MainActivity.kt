@@ -14,7 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.musclemasterapp.api.MealPlanScreen
+import com.example.musclemasterapp.main.MealPlanScreen
 import com.example.musclemasterapp.auth.LoginScreen
 import com.example.musclemasterapp.auth.ProfileScreen
 import com.example.musclemasterapp.auth.SignupScreen

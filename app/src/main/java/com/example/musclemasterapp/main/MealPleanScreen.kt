@@ -1,4 +1,4 @@
-package com.example.musclemasterapp.api
+package com.example.musclemasterapp.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.musclemasterapp.R
+import com.example.musclemasterapp.api.MealViewModel
 import com.example.musclemasterapp.api.model.Meal
 import com.example.musclemasterapp.api.model.MealPlan
 import com.example.musclemasterapp.api.model.Nutrients

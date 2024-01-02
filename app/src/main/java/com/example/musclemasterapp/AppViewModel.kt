@@ -17,8 +17,7 @@ const val USERS = "users"
 @HiltViewModel
 class AppViewModel @Inject constructor(
     val auth: FirebaseAuth,
-    val db: FirebaseFirestore,
-    val storage: FirebaseStorage
+    val db: FirebaseFirestore
 ): ViewModel() {
 
     val signedIn = mutableStateOf(false)
@@ -27,7 +26,7 @@ class AppViewModel @Inject constructor(
     val popupNotification = mutableStateOf<Event<String>?>(null)
 
     init {
-        //auth.signOut()
+        //auth.signOut() // debug purpouse
         val currentUser = auth.currentUser
         signedIn.value = currentUser != null
         currentUser?.uid?.let {uid ->

@@ -38,6 +38,6 @@ Upon launching MuscleMaster, you'll be redirected to create a profile. Follow th
 
 ## Acknowledgments
 
-- Thanks to Google Firebase for providing a robust backend solution.
+- Google Firebase for user variables.
 - Spoonacular API for the comprehensive meal plans.
 

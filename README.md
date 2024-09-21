@@ -1,7 +1,7 @@
-
 # Muscle Master Fitness App (Android)
 
 MuscleMaster, the ultimate fitness helper app designed to assist you in your fitness journey. Whether you're a beginner or an experienced athlete, MuscleMaster provides a comprehensive set of features to help you achieve your fitness goals.
+![Project Demo](docs/App-Screenshots.png)
 
 ## Features
 
@@ -40,4 +40,3 @@ Upon launching MuscleMaster, you'll be redirected to create a profile. Follow th
 
 - Google Firebase for user variables.
 - Spoonacular API for the comprehensive meal plans.
-
